@@ -2,11 +2,7 @@
 > make
 
 2. Executar o programa
-> ./compilador teste1.pas
-
-3. Ver código MEPA
-> cat MEPA
-
+> make run
 
 Para aqueles mais curiosos, verifiquem o arquivo lex.yy.c . Este
 arquivo é a implementação em "C" da autômato gerado pelo analisador

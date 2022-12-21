@@ -1,0 +1,11 @@
+.vscode/
+
+teste
+testafila.c
+
+compilador.o
+compilador.output
+compilador.tab*
+
+compilador
+lex.yy.c

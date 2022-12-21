@@ -8,9 +8,9 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include "compilador.h"
+#include "../lib/compilador.h"
 
-int num_vars;
+int numberVariables, lexicalLevel, offset = 0;
 
 %}
 
@@ -25,12 +25,12 @@ int num_vars;
 %%
 
 programa    :{
-             geraCodigo (NULL, "INPP");
+               geraCodigo (NULL, "INPP");
              }
              PROGRAM IDENT
              ABRE_PARENTESES lista_idents FECHA_PARENTESES PONTO_E_VIRGULA
              bloco PONTO {
-             geraCodigo (NULL, "PARA");
+               geraCodigo (NULL, "PARA");
              }
 ;
 
@@ -106,6 +106,8 @@ int main (int argc, char** argv) {
 /* -------------------------------------------------------------------
  *  Inicia a Tabela de Simbolos
  * ------------------------------------------------------------------- */
+
+
 
    yyin=fp;
    yyparse();

@@ -18,8 +18,8 @@
 #include<stdio.h>
 #include<string.h>
 
-#include "compilador.h"
-#include "compilador.tab.h"
+#include "./lib/compilador.h"
+#include "./build/compilador.tab.h"
 
 //#define IMPRIME(STR) {};
 #define IMPRIME(STR) printf("%s    # %s \n", STR, token);
