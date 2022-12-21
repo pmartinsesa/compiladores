@@ -1,6 +1,21 @@
 Terminals unused in grammar
 
     ATRIBUICAO
+    MAIOR
+    MENOR
+    WHILE
+    DO
+    IF
+    THEN
+    ELSE
+    FUNCTION
+    PROCEDURE
+    LABEL
+    TYPE
+    ARRAY
+    OF
+    GOTO
+    NOT
 
 
 Grammar
@@ -49,69 +64,84 @@ Terminals, with rules where they appear
     $end (0) 0
     error (256)
     PROGRAM (258) 2
-    ABRE_PARENTESES (259) 2
-    FECHA_PARENTESES (260) 2
-    VIRGULA (261) 15 17
-    PONTO_E_VIRGULA (262) 2 13
-    DOIS_PONTOS (263) 13
-    PONTO (264) 2
-    T_BEGIN (265) 19
-    T_END (266) 19
-    VAR (267) 7
-    IDENT (268) 2 14 15 16 17 18
-    ATRIBUICAO (269)
+    VAR (259) 7
+    T_BEGIN (260) 19
+    T_END (261) 19
+    ATRIBUICAO (262)
+    PONTO_E_VIRGULA (263) 2 13
+    DOIS_PONTOS (264) 13
+    VIRGULA (265) 15 17
+    PONTO (266) 2
+    ABRE_PARENTESES (267) 2
+    FECHA_PARENTESES (268) 2
+    MAIOR (269)
+    MENOR (270)
+    WHILE (271)
+    DO (272)
+    IF (273)
+    THEN (274)
+    ELSE (275)
+    FUNCTION (276)
+    PROCEDURE (277)
+    LABEL (278)
+    TYPE (279)
+    ARRAY (280)
+    OF (281)
+    GOTO (282)
+    NOT (283)
+    IDENT (284) 2 14 15 16 17 18
 
 
 Nonterminals, with rules where they appear
 
-    $accept (15)
+    $accept (30)
         on left: 0
-    programa (16)
+    programa (31)
         on left: 2
         on right: 0
-    $@1 (17)
+    $@1 (32)
         on left: 1
         on right: 2
-    bloco (18)
+    bloco (33)
         on left: 4
         on right: 2
-    $@2 (19)
+    $@2 (34)
         on left: 3
         on right: 4
-    parte_declara_vars (20)
+    parte_declara_vars (35)
         on left: 5
         on right: 4
-    var (21)
+    var (36)
         on left: 7 8
         on right: 5
-    $@3 (22)
+    $@3 (37)
         on left: 6
         on right: 7
-    declara_vars (23)
+    declara_vars (38)
         on left: 9 10
         on right: 7 9
-    declara_var (24)
+    declara_var (39)
         on left: 13
         on right: 9 10
-    $@4 (25)
+    $@4 (40)
         on left: 11
         on right: 13
-    $@5 (26)
+    $@5 (41)
         on left: 12
         on right: 13
-    tipo (27)
+    tipo (42)
         on left: 14
         on right: 13
-    lista_id_var (28)
+    lista_id_var (43)
         on left: 15 16
         on right: 13 15
-    lista_idents (29)
+    lista_idents (44)
         on left: 17 18
         on right: 2 17
-    comando_composto (30)
+    comando_composto (45)
         on left: 19
         on right: 4
-    comandos (31)
+    comandos (46)
         on left: 20
         on right: 19
 
@@ -182,25 +212,32 @@ State 8
     2 programa: $@1 PROGRAM IDENT ABRE_PARENTESES lista_idents . FECHA_PARENTESES PONTO_E_VIRGULA bloco PONTO
    17 lista_idents: lista_idents . VIRGULA IDENT
 
-    FECHA_PARENTESES  shift, and go to state 9
-    VIRGULA           shift, and go to state 10
+    VIRGULA           shift, and go to state 9
+    FECHA_PARENTESES  shift, and go to state 10
 
 
 State 9
 
-    2 programa: $@1 PROGRAM IDENT ABRE_PARENTESES lista_idents FECHA_PARENTESES . PONTO_E_VIRGULA bloco PONTO
+   17 lista_idents: lista_idents VIRGULA . IDENT
 
-    PONTO_E_VIRGULA  shift, and go to state 11
+    IDENT  shift, and go to state 11
 
 
 State 10
 
-   17 lista_idents: lista_idents VIRGULA . IDENT
+    2 programa: $@1 PROGRAM IDENT ABRE_PARENTESES lista_idents FECHA_PARENTESES . PONTO_E_VIRGULA bloco PONTO
 
-    IDENT  shift, and go to state 12
+    PONTO_E_VIRGULA  shift, and go to state 12
 
 
 State 11
+
+   17 lista_idents: lista_idents VIRGULA IDENT .
+
+    $default  reduce using rule 17 (lista_idents)
+
+
+State 12
 
     2 programa: $@1 PROGRAM IDENT ABRE_PARENTESES lista_idents FECHA_PARENTESES PONTO_E_VIRGULA . bloco PONTO
 
@@ -211,13 +248,6 @@ State 11
     parte_declara_vars  go to state 14
     var                 go to state 15
     $@3                 go to state 16
-
-
-State 12
-
-   17 lista_idents: lista_idents VIRGULA IDENT .
-
-    $default  reduce using rule 17 (lista_idents)
 
 
 State 13
@@ -347,8 +377,8 @@ State 28
    13 declara_var: $@4 lista_id_var . DOIS_PONTOS tipo $@5 PONTO_E_VIRGULA
    15 lista_id_var: lista_id_var . VIRGULA IDENT
 
-    VIRGULA      shift, and go to state 30
-    DOIS_PONTOS  shift, and go to state 31
+    DOIS_PONTOS  shift, and go to state 30
+    VIRGULA      shift, and go to state 31
 
 
 State 29
@@ -360,41 +390,41 @@ State 29
 
 State 30
 
-   15 lista_id_var: lista_id_var VIRGULA . IDENT
+   13 declara_var: $@4 lista_id_var DOIS_PONTOS . tipo $@5 PONTO_E_VIRGULA
 
     IDENT  shift, and go to state 32
+
+    tipo  go to state 33
 
 
 State 31
 
-   13 declara_var: $@4 lista_id_var DOIS_PONTOS . tipo $@5 PONTO_E_VIRGULA
+   15 lista_id_var: lista_id_var VIRGULA . IDENT
 
-    IDENT  shift, and go to state 33
-
-    tipo  go to state 34
+    IDENT  shift, and go to state 34
 
 
 State 32
-
-   15 lista_id_var: lista_id_var VIRGULA IDENT .
-
-    $default  reduce using rule 15 (lista_id_var)
-
-
-State 33
 
    14 tipo: IDENT .
 
     $default  reduce using rule 14 (tipo)
 
 
-State 34
+State 33
 
    13 declara_var: $@4 lista_id_var DOIS_PONTOS tipo . $@5 PONTO_E_VIRGULA
 
     $default  reduce using rule 12 ($@5)
 
     $@5  go to state 35
+
+
+State 34
+
+   15 lista_id_var: lista_id_var VIRGULA IDENT .
+
+    $default  reduce using rule 15 (lista_id_var)
 
 
 State 35
