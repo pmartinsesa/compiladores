@@ -60,7 +60,8 @@ declara_vars: declara_vars declara_var
 declara_var : { }
               lista_id_var DOIS_PONTOS
               tipo
-              { /* AMEM */
+              { 
+                  geraCodigo (NULL, "AMEM");
               }
               PONTO_E_VIRGULA
 ;
