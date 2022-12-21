@@ -75,7 +75,8 @@ extern int yydebug;
     OF = 281,
     GOTO = 282,
     NOT = 283,
-    IDENT = 284
+    IDENT = 284,
+    NUMERO = 285
   };
 #endif
 

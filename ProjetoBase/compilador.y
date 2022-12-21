@@ -20,7 +20,7 @@ int num_vars;
 %token MENOR WHILE DO IF
 %token THEN ELSE FUNCTION PROCEDURE
 %token LABEL TYPE ARRAY OF
-%token GOTO NOT IDENT
+%token GOTO NOT IDENT NUMERO
 
 %%
 
