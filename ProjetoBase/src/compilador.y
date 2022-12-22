@@ -9,8 +9,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../lib/compilador.h"
+#include "../lib/tableValues.h"
+#include "../lib/queue.h"
 
-int numberVariables, lexicalLevel, offset = 0;
+#define STACKSIZE 32768		/* tamanho das pilhas*/
+
+int numberVariables = 0, lexicalLevel = 0, offset = 0;
+tableVariable_t *variablesQueue = NULL, *newVariable = NULL;
 
 %}
 
@@ -61,7 +66,12 @@ declara_var : { }
               lista_id_var DOIS_PONTOS
               tipo
               { 
-                  geraCodigo (NULL, "AMEM");
+                  printf("\n\ntoken = %s\n\n", token);
+                  printf("\n\numberVariables = %d\n\n", numberVariables);
+
+                  char amem[1000];
+                  sprintf(amem, "AMEM %d", numberVariables);
+                  geraCodigo (NULL, amem);
               }
               PONTO_E_VIRGULA
 ;
@@ -70,8 +80,22 @@ tipo        : IDENT
 ;
 
 lista_id_var: lista_id_var VIRGULA IDENT
-              { /* insere �ltima vars na tabela de s�mbolos */ }
-            | IDENT { /* insere vars na tabela de s�mbolos */}
+            { 
+               newVariable = createVariable(0, lexicalLevel, offset, -1, -1);
+               queue_append((queue_t **) &variablesQueue, (queue_t*) newVariable);
+               //queue_print("saida da fila", (queue_t*) variablesQueue, print_elem);
+
+               numberVariables++;
+            }
+            | IDENT {
+               newVariable = createVariable(0, lexicalLevel, offset, -1, -1);
+               queue_append((queue_t **) &variablesQueue, (queue_t*) newVariable);
+               // queue_print("saida da fila", (queue_t*) variablesQueue, print_elem);
+               // printf("\n\ntamanho fila = %d\n\n", queue_size((queue_t*) variablesQueue));
+
+               offset++;
+               numberVariables++;
+            }
 ;
 
 lista_idents: lista_idents VIRGULA IDENT
@@ -106,9 +130,6 @@ int main (int argc, char** argv) {
 /* -------------------------------------------------------------------
  *  Inicia a Tabela de Simbolos
  * ------------------------------------------------------------------- */
-
-
-
    yyin=fp;
    yyparse();
 

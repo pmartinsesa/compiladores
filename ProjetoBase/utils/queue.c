@@ -1,16 +1,16 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "queue.h"
+
+#include "../lib/queue.h"
 
 void queue_append (queue_t **queue, queue_t *elem)
 {
 	queue_t* andador;
-	
 	//andador (variavel responsavel por se movimentar na fila)  = primeiro elemento
 	andador = *queue;
-
 	// - a fila deve existir
 	// - o elemento deve existir
+
 	if ((queue == NULL) || elem == NULL)
 	{
 		printf("ERRO, FILA OU ELEMENTO NAO ENCONTRADO, FAVOR VERIFICAR A INSERCAO\n");
@@ -120,6 +120,7 @@ int queue_size (queue_t *queue)
 
 	if (queue != NULL)
 	{
+
 		tamanho++;
 		//comparando enderecos de memoria
 		while (sentinela != queue->next)
@@ -128,9 +129,8 @@ int queue_size (queue_t *queue)
 			queue = queue->next;
 		}
 	}
-	
-	queue = sentinela;	
-	
+
+	queue = sentinela;		
 	return tamanho;
 }
 
